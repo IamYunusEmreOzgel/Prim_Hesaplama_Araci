@@ -1,0 +1,174 @@
+/**
+ * Uygulamanın tablet ve mobil ekran uyarlamalarını içerir.
+ *
+ * Görevleri:
+ * - Sidebar yerine mobil alt navigasyon kullanımını düzenler.
+ * - Kart, form, tablo ve içerik alanlarının dar ekran yerleşimini optimize eder.
+ * - Dokunmatik kullanım için boyut ve boşluk düzenlemeleri uygular.
+ */
+
+@media (max-width: 900px) {
+    .app-layout {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 22px;
+        padding-bottom: 176px;
+        overflow-x: hidden;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .topbar h2 {
+        font-size: 26px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .inline-form {
+        grid-template-columns: 1fr;
+    }
+
+    .breakdown-title {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .breakdown-title h3 {
+        width: 100%;
+    }
+
+    .breakdown-controls {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .breakdown-controls .month-filter-label {
+        width: 100%;
+    }
+
+    .bottom-nav {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        z-index: 10;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 20px;
+        padding: 7px;
+        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.32);
+        backdrop-filter: blur(10px);
+    }
+
+    .bottom-nav a {
+        color: #dbeafe;
+        font-size: 11px;
+        font-weight: 800;
+        line-height: 1.1;
+        text-align: center;
+        padding: 10px 3px;
+        border-radius: 13px;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: -0.1px;
+    }
+
+    .bottom-nav a.active {
+        background: #2563eb;
+        color: #ffffff;
+        box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+    }
+}
+
+@media (max-width: 520px) {
+    .main-content {
+        padding: 16px;
+        padding-bottom: 176px;
+    }
+
+    .content-card,
+    .summary-card,
+    .auth-card {
+        border-radius: 16px;
+        padding: 18px;
+    }
+
+    .summary-card strong {
+        font-size: 26px;
+        overflow-wrap: anywhere;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .list-item {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .list-value-area {
+        justify-items: start;
+    }
+
+    .item-actions {
+        justify-content: flex-start;
+    }
+
+    .breakdown-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .breakdown-row span {
+        white-space: normal;
+    }
+
+    .total-preview {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .total-preview strong {
+        font-size: 21px;
+        overflow-wrap: anywhere;
+    }
+
+    .modal-card {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 380px) {
+    .bottom-nav {
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+        gap: 4px;
+        padding: 6px;
+    }
+
+    .bottom-nav a {
+        font-size: 10.5px;
+        padding: 9px 1px;
+        letter-spacing: -0.25px;
+    }
+}

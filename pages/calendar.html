@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+    Prim kayıtlarının aylık takvim görünümünü barındırır.
+
+    Sayfanın görevleri:
+    - Ay seçimi ve takvim gezinme kontrollerini sunar.
+    - Günlük prim toplamları ile kayıt ayrıntılarının gösterileceği alanları içerir.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Prim Takvimi</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calendar.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>Prim Takvimi</h2>
+                    <p>Seçilen ayda hangi gün ne kadar prim kazandığını takvim görünümünde takip et.</p>
+                </div>
+            </header>
+
+            <section class="content-card">
+                <div class="calendar-toolbar">
+                    <label class="month-filter-label">
+                        Ay Seç
+                        <input type="month" id="calendarMonth">
+                    </label>
+                    <div class="calendar-legend">
+                        <span><b class="legend-dot prime-dot"></b>Prim var</span>
+                        <span><b class="legend-dot empty-dot"></b>Kayıt yok</span>
+                        <span><b class="legend-dot holiday-dot"></b>Pazar / resmi tatil</span>
+                        <span><b class="legend-dot today-dot"></b>Bugün</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="summary-grid report-summary-grid">
+                <article class="summary-card">
+                    <span>Seçilen Ay Toplamı</span>
+                    <strong id="calendarMonthTotal">0 TL</strong>
+                </article>
+                <article class="summary-card">
+                    <span>Takvim Günleri Toplamı</span>
+                    <strong id="calendarDailyTotal">0 TL</strong>
+                </article>
+                <article class="summary-card">
+                    <span>Aylık Toplu Prim</span>
+                    <strong id="calendarMonthlyFixedTotal">0 TL</strong>
+                </article>
+                <article class="summary-card">
+                    <span>Prim Girilen Gün</span>
+                    <strong id="calendarActiveDayCount">0</strong>
+                </article>
+                <article class="summary-card">
+                    <span>En Yüksek Gün</span>
+                    <strong id="calendarBestDay">-</strong>
+                </article>
+                <article class="summary-card">
+                    <span>Kilit Durumu</span>
+                    <strong id="calendarLockStatus">Açık</strong>
+                </article>
+            </section>
+
+            <section class="calendar-layout">
+                <article class="content-card calendar-card">
+                    <div class="calendar-weekdays">
+                        <span>Pzt</span>
+                        <span>Sal</span>
+                        <span>Çar</span>
+                        <span>Per</span>
+                        <span>Cum</span>
+                        <span>Cmt</span>
+                        <span>Paz</span>
+                    </div>
+                    <div id="calendarGrid" class="calendar-grid"></div>
+                </article>
+
+                <article class="content-card day-detail-card">
+                    <div class="section-title">
+                        <h3 id="selectedDayTitle">Gün Detayı</h3>
+                    </div>
+                    <div id="selectedDaySummary" class="total-preview">
+                        <span>Seçilen Gün Toplamı</span>
+                        <strong>0 TL</strong>
+                    </div>
+                    <div id="selectedDayList" class="list-area empty-state">
+                        Detay görmek için takvimden bir gün seç.
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/calendar.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+    Kullanıcı ayarları ekranının HTML yapısını içerir.
+
+    Sayfanın görevleri:
+    - Maaş ve sabit prim değerlerinin düzenlenmesini sağlar.
+    - Ay kilitleme, profil ve tema seçeneklerinin arayüz alanlarını sunar.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Ayarlar</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>Ayarlar</h2>
+                    <p>Sabit maaş, çalışma günü, resmi tatil primi ve ay kilitleme ayarlarını buradan yönet.</p>
+                </div>
+            </header>
+
+            <section class="content-card">
+                <form id="settingsForm" class="form-card">
+                    <label>
+                        Sabit Ham Maaş
+                        <input type="number" id="baseSalary" min="0" step="0.01" placeholder="Örn: 30000">
+                    </label>
+
+                    <label>
+                        Hafta İçi Günlük Prim
+                        <input type="number" id="weekdayFixedBonus" min="0" step="0.01" placeholder="Örn: 250">
+                    </label>
+
+                    <label>
+                        Cumartesi Günlük Prim
+                        <input type="number" id="weekendFixedBonus" min="0" step="0.01" placeholder="Örn: 400">
+                    </label>
+
+                    <label>
+                        Resmi Tatil Günlük Prim
+                        <input type="number" id="holidayFixedBonus" min="0" step="0.01" placeholder="Örn: 600">
+                    </label>
+
+                    <label>
+                        Para Birimi
+                        <select id="currency">
+                            <option value="TRY">Türk Lirası - TL</option>
+                        </select>
+                    </label>
+
+                    <p id="settingsMessage" class="form-message"></p>
+
+                    <button class="btn btn-primary" type="submit">Ayarları Kaydet</button>
+                </form>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title">
+                    <h3>Ay Kilitleme</h3>
+                </div>
+
+                <div class="form-card inline-form">
+                    <label>
+                        Kilitlenecek Ay
+                        <input type="month" id="lockMonthInput">
+                    </label>
+                    <button class="btn btn-primary" type="button" id="lockMonthButton">Ayı Kilitle</button>
+                    <button class="btn btn-secondary" type="button" id="unlockMonthButton">Kilidi Kaldır</button>
+                </div>
+
+                <p class="helper-text">
+                    Kilitlenen aylarda kayıt ekleme, aylık toplu kayıt oluşturma, kayıt düzenleme ve kayıt silme işlemleri engellenir.
+                </p>
+
+                <div id="lockedMonthsList" class="list-area empty-state">
+                    Kilitli ay bulunmuyor.
+                </div>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title">
+                    <h3>Görünüm</h3>
+                </div>
+
+                <div class="theme-toggle" role="group" aria-label="Tema seçimi">
+                    <button class="theme-option" type="button" data-theme-option="light">Aydınlık Mod</button>
+                    <button class="theme-option" type="button" data-theme-option="dark">Karanlık Mod</button>
+                </div>
+
+                <p class="helper-text">
+                    Seçtiğin görünüm bu tarayıcıda kaydedilir ve siteyi tekrar açtığında aynı şekilde devam eder.
+                </p>
+            </section>
+
+            <section class="content-card logout-card">
+                <div class="section-title">
+                    <h3>Oturum</h3>
+                </div>
+                <p class="helper-text">Hesabından güvenli şekilde çıkış yapmak için aşağıdaki butonu kullan.</p>
+                <button class="btn btn-secondary" type="button" id="logoutButton">Çıkış Yap</button>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/settings.js"></script>
+    <script type="module" src="../assets/js/main.js"></script>
+</body>
+</html>

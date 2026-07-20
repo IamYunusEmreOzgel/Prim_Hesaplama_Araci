@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--
+    Prim grafik ve analiz ekranının HTML yapısını içerir.
+
+    Sayfanın görevleri:
+    - Dönem ve prim kalemi filtrelerini sunar.
+    - Aylık değişim, dağılım ve özet grafiklerinin yerleşimini tanımlar.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Grafikler</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/charts.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>Grafikler</h2>
+                    <p>Prim verilerini görsel olarak incele; hangi kalem ne kadar kazandırıyor ve zaman içinde nasıl değişiyor takip et.</p>
+                </div>
+            </header>
+
+            <section class="content-card">
+                <form id="chartFilterForm" class="form-card report-filter-form">
+                    <label>
+                        Hesaplama Modu
+                        <select id="chartViewMode">
+                            <option value="accrued">Bugüne Kadar Hak Edilen</option>
+                            <option value="planned">Ay Sonu Planlanan</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Ay Bazlı Analiz
+                        <input type="month" id="chartMonth">
+                    </label>
+
+                    <label>
+                        Başlangıç
+                        <input type="date" id="chartStartDate">
+                    </label>
+
+                    <label>
+                        Bitiş
+                        <input type="date" id="chartEndDate">
+                    </label>
+
+                    <label>
+                        Prim Kalemi
+                        <select id="chartItemSelect">
+                            <option value="">Tüm kalemler</option>
+                        </select>
+                    </label>
+
+                    <button class="btn btn-primary" type="submit">Grafikleri Güncelle</button>
+                    <button class="btn btn-secondary" type="button" id="clearChartFiltersButton">Temizle</button>
+                </form>
+
+                <p id="chartModeInfo" class="helper-text chart-mode-info">
+                    Bugüne Kadar Hak Edilen modunda aylık toplu primler günlere dağıtılır ve mevcut ayda bugünden sonrası hesaba katılmaz.
+                </p>
+            </section>
+
+            <section class="content-card composition-card">
+                <div class="section-title">
+                    <h3>Prim Kompozisyonu</h3>
+                </div>
+                <p id="compositionSummary" class="composition-summary">
+                    Seçilen filtreye göre prim kompozisyonu hesaplanıyor.
+                </p>
+                <div id="compositionList" class="composition-list empty-state">
+                    Henüz kompozisyon oluşturacak veri bulunmuyor.
+                </div>
+                <p id="compositionComment" class="helper-text composition-comment"></p>
+            </section>
+
+            <section class="summary-grid report-summary-grid">
+                <article class="summary-card">
+                    <span>Toplam Prim</span>
+                    <strong id="chartTotal">0 TL</strong>
+                </article>
+                <article class="summary-card">
+                    <span>İşlem Sayısı</span>
+                    <strong id="chartCount">0</strong>
+                </article>
+                <article class="summary-card">
+                    <span>En Çok Kazandıran Kalem</span>
+                    <strong id="chartTopItem">-</strong>
+                </article>
+            </section>
+
+            <section class="report-chart-grid">
+                <article class="content-card chart-card">
+                    <div class="section-title">
+                        <h3>Prim Türüne Göre Hakediş</h3>
+                    </div>
+                    <canvas id="amountByTypeChart"></canvas>
+                    <p class="helper-text">Seçilen moda ve filtreye göre prim türlerinin toplam kazandırdığı tutar.</p>
+                </article>
+
+                <article class="content-card chart-card">
+                    <div class="section-title">
+                        <h3>Prim Türüne Göre Adet</h3>
+                    </div>
+                    <canvas id="countByTypeChart"></canvas>
+                    <p class="helper-text">Seçilen moda ve filtreye göre prim türlerinin adet/kayıt dağılımı.</p>
+                </article>
+
+                <article class="content-card chart-card wide-chart">
+                    <div class="section-title">
+                        <h3>Günlere Göre Prim Trendi</h3>
+                    </div>
+                    <canvas id="dailyTrendChart"></canvas>
+                    <p class="helper-text">Seçilen tarih aralığında günlük prim toplamlarının değişimi.</p>
+                </article>
+
+                <article class="content-card chart-card wide-chart">
+                    <div class="section-title">
+                        <h3>Aylara Göre Prim Trendi</h3>
+                    </div>
+                    <canvas id="monthlyTrendChart"></canvas>
+                    <p class="helper-text">Seçilen moda göre aylara göre toplam prim değişimi.</p>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/charts.js"></script>
+    <script type="module" src="../assets/js/main.js"></script>
+</body>
+</html>

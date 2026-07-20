@@ -1,0 +1,40 @@
+/**
+ * Özel tarih ve ay seçim bileşenlerinin görünümünü tanımlar.
+ *
+ * Görevleri:
+ * - Yerel input alanlarını erişilebilir biçimde gizleyerek özel kontrolleri öne çıkarır.
+ * - Seçenek listeleri, açılır paneller ve aktif seçim durumlarını biçimlendirir.
+ */
+
+.native-date-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.custom-date-control {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+}
+
+.custom-month-control {
+    grid-template-columns: 1fr;
+}
+
+.custom-full-date-control {
+    grid-template-columns: 0.8fr 1.2fr 1fr;
+}
+
+.custom-date-select {
+    width: 100%;
+    min-width: 0;
+}
+
+@media (max-width: 520px) {
+    .custom-full-date-control {
+        grid-template-columns: 1fr;
+    }
+}

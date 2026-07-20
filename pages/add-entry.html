@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+    Tekli ve aylık toplu prim kayıt ekranının yapısını içerir.
+
+    Sayfanın görevleri:
+    - Prim kalemi, adet ve tarih bilgileriyle tekli kayıt oluşturmayı sağlar.
+    - İzin ve çalışılan tatil seçimleriyle aylık sabit prim hesabını sunar.
+    - Hesap önizlemeleri, uyarılar ve kayıt formu alanlarını barındırır.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | İşlem Ekle</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/yeo-logo.svg">
+    <link rel="apple-touch-icon" href="../assets/img/yeo-logo.svg">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/monthly-entry.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>İşlem Ekle</h2>
+                    <p>Tekli işlem veya seçilen ay için toplu sabit prim kaydı oluştur.</p>
+                </div>
+            </header>
+
+            <section class="content-card">
+                <div class="mode-switch">
+                    <button class="mode-button active" type="button" data-mode="single">Normal Tekli Kayıt</button>
+                    <button class="mode-button" type="button" data-mode="monthly">Aylık Toplu Kayıt</button>
+                </div>
+            </section>
+
+            <section class="content-card entry-section" id="singleEntrySection">
+                <div class="section-title">
+                    <h3>Normal Tekli Kayıt</h3>
+                </div>
+
+                <form id="entryForm" class="form-card">
+                    <label>
+                        Prim Kalemi
+                        <select id="itemSelect" required>
+                            <option value="">Prim kalemi seç</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Adet
+                        <input type="number" id="quantity" min="1" value="1" required>
+                    </label>
+
+                    <label>
+                        Tarih
+                        <input type="date" id="entryDate" required>
+                    </label>
+
+                    <div class="total-preview">
+                        <span>Hesaplanan Prim</span>
+                        <strong id="calculatedTotal">0 TL</strong>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Tekli Kaydı Ekle</button>
+                </form>
+            </section>
+
+            <section class="content-card entry-section hidden" id="monthlyEntrySection">
+                <div class="section-title">
+                    <h3>Aylık Toplu Kayıt</h3>
+                </div>
+
+                <form id="monthlyEntryForm" class="form-card">
+                    <label>
+                        Ay Seç
+                        <select id="monthlyEntryMonth" required>
+                            <option value="">Ay seç</option>
+                        </select>
+                    </label>
+
+                    <div id="monthlyEntryWarning" class="empty-state hidden"></div>
+
+                    <div class="monthly-summary-grid">
+                        <div class="total-preview">
+                            <span>Hafta İçi</span>
+                            <strong id="weekdayCountPreview">0</strong>
+                        </div>
+                        <div class="total-preview">
+                            <span>Cumartesi</span>
+                            <strong id="weekendCountPreview">0</strong>
+                        </div>
+                        <div class="total-preview">
+                            <span>Tatil</span>
+                            <strong id="holidayCountPreview">0</strong>
+                        </div>
+                    </div>
+
+                    <section class="selector-card">
+                        <div class="selector-header">
+                            <div>
+                                <h4>İzinli Günler</h4>
+                                <p>Primden düşülecek çalışma günlerini seç.</p>
+                            </div>
+                            <strong id="leaveDayCountPreview">0 gün</strong>
+                        </div>
+                        <div id="leaveDaySelector" class="day-selector empty-state">
+                            Ay seçildiğinde çalışma günleri burada listelenir.
+                        </div>
+                    </section>
+
+                    <section class="selector-card">
+                        <div class="selector-header">
+                            <div>
+                                <h4>Resmi Tatil / Pazar Çalışması</h4>
+                                <p>Çalıştığın tatil günlerini seç.</p>
+                            </div>
+                            <strong id="workedHolidayCountPreview">0 gün</strong>
+                        </div>
+                        <div id="workedHolidaySelector" class="day-selector empty-state">
+                            Ay seçildiğinde tatil günleri burada listelenir.
+                        </div>
+                    </section>
+
+                    <div class="total-preview">
+                        <span>Prim Hesabına Dahil Gün</span>
+                        <strong id="paidDayCountPreview">0</strong>
+                    </div>
+
+                    <div class="total-preview monthly-total-preview">
+                        <span>Toplu Sabit Prim</span>
+                        <strong id="monthlyFixedTotalPreview">0 TL</strong>
+                    </div>
+
+                    <p class="helper-text">
+                        İzinli günleri ve resmi tatil çalışmalarını listeden seç. Sistem seçilen ayın tamamını hesaplar; her gün tekrar kayıt oluşturman gerekmez.
+                    </p>
+
+                    <button class="btn btn-primary" type="submit">Aylık Toplu Kaydı Ekle</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/entries.js"></script>
+    <script type="module" src="../assets/js/preserve-entry-date.js"></script>
+</body>
+</html>

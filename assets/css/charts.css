@@ -1,0 +1,164 @@
+/**
+ * Grafik ve prim kompozisyonu sayfasının özet kartlarını düzenler.
+ *
+ * Görevleri:
+ * - Grafik alanları, açıklamalar ve dağılım bileşenlerinin yerleşimini tanımlar.
+ * - Analiz ekranının masaüstü ve dar ekran görünümünü destekler.
+ */
+
+.report-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.report-filter-form {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    align-items: end;
+}
+
+.report-filter-form label,
+.report-filter-form button {
+    min-width: 0;
+}
+
+.chart-mode-info {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--muted-card);
+    border: 1px solid var(--border);
+}
+
+.composition-card {
+    display: grid;
+    gap: 14px;
+    overflow: hidden;
+}
+
+.composition-summary {
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.composition-list {
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+}
+
+.composition-item {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--muted-card);
+    min-width: 0;
+}
+
+.composition-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    min-width: 0;
+}
+
+.composition-row > div {
+    min-width: 0;
+}
+
+.composition-row strong,
+.composition-row span,
+.composition-row b {
+    display: block;
+}
+
+.composition-row strong,
+.composition-row span {
+    overflow-wrap: anywhere;
+}
+
+.composition-row span {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.composition-row b {
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+.composition-comment {
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.report-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    min-height: 390px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.chart-card canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 280px !important;
+}
+
+.wide-chart {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+    .report-summary-grid,
+    .report-chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-filter-form {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+        min-height: 360px;
+    }
+
+    .chart-card canvas {
+        height: 260px !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .composition-summary {
+        font-size: 16px;
+    }
+
+    .composition-row {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .composition-row b {
+        white-space: normal;
+    }
+
+    .chart-mode-info {
+        font-size: 13px;
+    }
+}

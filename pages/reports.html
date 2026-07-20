@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--
+    Prim raporlama ve geçmiş kayıt yönetimi ekranının yapısını içerir.
+
+    Sayfanın görevleri:
+    - Tarih, ay ve prim kalemi filtrelerini sunar.
+    - Kayıt listesi, özet değerler, düzenleme ve silme kontrollerini barındırır.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Raporlar</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>Raporlar</h2>
+                    <p>Prim kayıtlarını ay, tarih ve kalem bazlı incele; hatalı kayıtları düzenle veya sil.</p>
+                </div>
+            </header>
+
+            <section class="content-card">
+                <form id="filterForm" class="form-card report-filter-form">
+                    <label>
+                        Ay Bazlı Rapor
+                        <input type="month" id="reportMonth">
+                    </label>
+
+                    <label>
+                        Başlangıç
+                        <input type="date" id="startDate">
+                    </label>
+
+                    <label>
+                        Bitiş
+                        <input type="date" id="endDate">
+                    </label>
+
+                    <label>
+                        Prim Kalemi
+                        <select id="reportItemSelect">
+                            <option value="">Tüm kalemler</option>
+                        </select>
+                    </label>
+
+                    <button class="btn btn-primary" type="submit">Filtrele</button>
+                    <button class="btn btn-secondary" type="button" id="clearFiltersButton">Temizle</button>
+                </form>
+            </section>
+
+            <section class="summary-grid">
+                <article class="summary-card">
+                    <span>Filtre Toplamı</span>
+                    <strong id="reportTotal">0 TL</strong>
+                </article>
+                <article class="summary-card">
+                    <span>İşlem Sayısı</span>
+                    <strong id="reportCount">0</strong>
+                </article>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title">
+                    <h3>Kayıtlar</h3>
+                </div>
+                <div id="reportList" class="list-area empty-state">
+                    Henüz raporlanacak işlem bulunmuyor.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="editEntryModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="section-title">
+                <h3>Kayıt Düzenle</h3>
+                <button class="link-button" type="button" id="closeEditModalButton">Kapat</button>
+            </div>
+
+            <form id="editEntryForm" class="form-card">
+                <input type="hidden" id="editEntryId">
+                <input type="hidden" id="editEntryType">
+
+                <label id="editDateLabel">
+                    Tarih
+                    <input type="date" id="editDate">
+                </label>
+
+                <label id="editMonthLabel" class="hidden">
+                    Ay
+                    <input type="month" id="editMonth">
+                </label>
+
+                <label id="editQuantityLabel">
+                    Adet
+                    <input type="number" id="editQuantity" min="1" step="1">
+                </label>
+
+                <div id="editMonthlyFields" class="form-card hidden">
+                    <label>
+                        İzinli Gün Tarihleri
+                        <textarea id="editLeaveDateList" rows="4" placeholder="Örn: 2026-07-08&#10;2026-07-09"></textarea>
+                    </label>
+
+                    <div class="total-preview">
+                        <span>İzinli Gün</span>
+                        <strong id="editLeaveDayCountPreview">0</strong>
+                    </div>
+
+                    <label>
+                        Resmi Tatilde Çalışılan Gün
+                        <input type="number" id="editWorkedHolidayCount" min="0" step="1">
+                    </label>
+
+                    <label>
+                        Resmi Tatilde Çalışılan Tarihler
+                        <textarea id="editWorkedHolidayDateList" rows="3" placeholder="Boş bırakabilirsin. Örn: 2026-07-15"></textarea>
+                    </label>
+
+                    <label>
+                        Hafta İçi Günlük Prim
+                        <input type="number" id="editWeekdayUnitPrice" min="0" step="0.01">
+                    </label>
+
+                    <label>
+                        Cumartesi Günlük Prim
+                        <input type="number" id="editWeekendUnitPrice" min="0" step="0.01">
+                    </label>
+
+                    <label>
+                        Resmi Tatil Günlük Prim
+                        <input type="number" id="editHolidayUnitPrice" min="0" step="0.01">
+                    </label>
+
+                    <div class="total-preview">
+                        <span>Hesap Dökümü</span>
+                        <strong id="editMonthlyBreakdown">0 gün</strong>
+                    </div>
+                </div>
+
+                <label id="editTotalLabel" class="hidden">
+                    Toplam Prim
+                    <input type="number" id="editTotal" min="0" step="0.01" readonly>
+                </label>
+
+                <div class="total-preview">
+                    <span>Güncel Hesaplanan Prim</span>
+                    <strong id="editCalculatedTotal">0 TL</strong>
+                </div>
+
+                <p id="editModalMessage" class="form-message"></p>
+
+                <button class="btn btn-primary" type="submit">Kaydet</button>
+                <button class="btn btn-secondary" type="button" id="cancelEditModalButton">İptal</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/reports.js"></script>
+    <script type="module" src="../assets/js/main.js"></script>
+</body>
+</html>

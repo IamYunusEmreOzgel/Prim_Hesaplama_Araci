@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+    Prim hesaplama aracının ana dashboard sayfasıdır.
+
+    Sayfanın görevleri:
+    - Seçilen aya ait prim, maaş ve işlem özetlerini gösterir.
+    - Prim kalemi dağılımını ay ve sıralama seçenekleriyle sunar.
+    - Yeni işlem ve diğer uygulama sayfalarına erişim sağlar.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Ana Sayfa</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/yeo-logo.svg">
+    <link rel="apple-touch-icon" href="assets/img/yeo-logo.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img class="brand-logo" src="assets/img/yeo-logo.svg" alt="YEÖ Logo">
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2 id="welcomeTitle">Dashboard</h2>
+                    <p>Bugünkü prim, seçilen ay primleri ve net maaş durumunu buradan takip et.</p>
+                </div>
+                <a class="btn btn-primary" href="pages/add-entry.html">+ Yeni İşlem</a>
+            </header>
+
+            <section class="summary-grid">
+                <article class="summary-card">
+                    <span>Seçilen Ay Primi</span>
+                    <strong id="monthTotal">0 TL</strong>
+                </article>
+
+                <article class="summary-card">
+                    <span>Bugünkü Prim</span>
+                    <strong id="todayTotal">0 TL</strong>
+                </article>
+
+                <article class="summary-card">
+                    <span>Seçilen Ay İşlem Sayısı</span>
+                    <strong id="entryCount">0</strong>
+                </article>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title">
+                    <h3>Seçilen Ay Maaş Özeti</h3>
+                </div>
+
+                <div class="summary-grid salary-grid">
+                    <article class="summary-card compact-card">
+                        <span>Sabit Ham Maaş</span>
+                        <strong id="baseSalaryTotal">0 TL</strong>
+                    </article>
+
+                    <article class="summary-card compact-card">
+                        <span>Seçilen Ay Prim Toplamı</span>
+                        <strong id="monthlyBonusTotal">0 TL</strong>
+                    </article>
+
+                    <article class="summary-card compact-card">
+                        <span>Seçilen Ay Net Maaş</span>
+                        <strong id="estimatedSalaryTotal">0 TL</strong>
+                    </article>
+                </div>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title breakdown-title">
+                    <h3>Seçilen Ay Prim Dağılımı</h3>
+                    <div class="breakdown-controls">
+                        <label class="month-filter-label">
+                            Ay
+                            <input type="month" id="dashboardMonth">
+                        </label>
+                        <label class="month-filter-label">
+                            Sıralama
+                            <select id="breakdownSort">
+                                <option value="count">Adete göre sırala</option>
+                                <option value="total">Hak edilen prime göre sırala</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div id="monthlyTypeBreakdown" class="empty-state">
+                    Seçilen ay için prim kaydı bulunmuyor.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script type="module" src="assets/js/app-init.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script type="module" src="assets/js/dashboard.js"></script>
+</body>
+</html>

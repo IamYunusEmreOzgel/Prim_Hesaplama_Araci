@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+    Kullanıcı giriş ekranının HTML yapısını içerir.
+
+    Sayfanın görevleri:
+    - E-posta ve şifre ile Firebase oturumu açılmasını sağlar.
+    - Giriş durumu ve doğrulama mesajlarının gösterileceği alanları sunar.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Giriş</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body class="auth-page">
+    <main class="auth-wrapper">
+        <section class="auth-card">
+            <div class="brand auth-brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+
+            <form id="loginForm" class="form-card">
+                <label>
+                    E-posta
+                    <input type="email" id="email" placeholder="ornek@mail.com" required>
+                </label>
+
+                <label>
+                    Şifre
+                    <input type="password" id="password" placeholder="Şifreniz" required>
+                </label>
+
+                <button class="btn btn-primary" type="submit">Giriş Yap</button>
+                <p id="authMessage" class="form-message"></p>
+            </form>
+        </section>
+    </main>
+
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--
+    Kayıt oluşturmadan geçici prim hesabı yapılan ekranın yapısını içerir.
+
+    Sayfanın görevleri:
+    - Tekli işlem kalemleri ve aylık sabit prim senaryolarını birleştirir.
+    - Tahmini kazanç özetini ve PDF indirme kontrolünü sunar.
+-->
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prim Hesaplama Aracı | Hızlı Hesap</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/yeo-logo.svg">
+    <link rel="apple-touch-icon" href="../assets/img/yeo-logo.svg">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/quick-calc.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">₺</span>
+                <div>
+                    <h1>Prim Aracı</h1>
+                    <p>Prim Hesaplama Aracı</p>
+                </div>
+            </div>
+            <nav class="side-nav" aria-label="Ana menü"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h2>Hızlı Hesap</h2>
+                    <p>Kayıt oluşturmadan geçici prim senaryosu hesapla. Bu sayfadaki veriler hiçbir yere kaydedilmez.</p>
+                </div>
+            </header>
+
+            <section class="content-card">
+                <p class="quick-note">
+                    Bu ekran sadece deneme hesabı içindir. Firebase'e kayıt atmaz, ana sayfa toplamlarını değiştirmez, rapor ve takvime yansımaz. Sayfayı kapatınca veya yenileyince girilen bilgiler silinir.
+                </p>
+            </section>
+
+            <section class="quick-calc-grid">
+                <article class="content-card">
+                    <div class="section-title">
+                        <h3>Tekli İşlem Hızlı Hesap</h3>
+                    </div>
+
+                    <div class="form-card">
+                        <label>
+                            Prim Kalemi
+                            <select id="quickItemSelect">
+                                <option value="">Manuel birim ücret gir</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Adet
+                            <input type="number" id="quickQuantity" min="1" step="1" value="1">
+                        </label>
+
+                        <label>
+                            Birim Ücret
+                            <input type="number" id="quickUnitPrice" min="0" step="0.01" placeholder="Örn: 120">
+                        </label>
+
+                        <div class="total-preview">
+                            <span>Bu Satırın Primi</span>
+                            <strong id="quickSingleTotal">0 TL</strong>
+                        </div>
+
+                        <button class="btn btn-primary" type="button" id="quickAddSingleButton">Hızlı Listeye Ekle</button>
+                    </div>
+                </article>
+
+                <article class="content-card">
+                    <div class="section-title">
+                        <h3>Sonuç Özeti</h3>
+                    </div>
+
+                    <div class="quick-result-card">
+                        <div class="quick-result-row">
+                            <span>Tekli İşlem Primi</span>
+                            <strong id="quickSingleTotalSummary">0 TL</strong>
+                        </div>
+                        <div class="quick-result-row">
+                            <span>Aylık Sabit Prim</span>
+                            <strong id="quickMonthlyTotal">0 TL</strong>
+                        </div>
+                        <div class="quick-result-row">
+                            <span>Toplam Tahmini Prim</span>
+                            <strong id="quickGrandTotal">0 TL</strong>
+                        </div>
+                    </div>
+
+                    <div class="quick-calc-actions">
+                        <button class="btn btn-primary" type="button" id="quickPdfButton">PDF Olarak İndir</button>
+                        <button class="btn btn-secondary" type="button" id="quickClearButton">Temizle</button>
+                    </div>
+                    <p class="helper-text">PDF sadece bu sayfadaki geçici hızlı listeyi kullanır; kayıt sistemine dokunmaz.</p>
+                </article>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title">
+                    <h3>Geçici Tekli İşlem Listesi</h3>
+                </div>
+                <div id="quickSingleList" class="list-area empty-state">
+                    Henüz hızlı listeye işlem eklenmedi.
+                </div>
+            </section>
+
+            <section class="content-card">
+                <div class="section-title">
+                    <h3>Aylık Toplu Hızlı Hesap</h3>
+                </div>
+
+                <div class="form-card">
+                    <label>
+                        Ay Seç
+                        <input type="month" id="quickMonth">
+                    </label>
+
+                    <div class="monthly-summary-grid">
+                        <div class="total-preview">
+                            <span>Hafta İçi</span>
+                            <strong id="quickWeekdayCount">0</strong>
+                        </div>
+                        <div class="total-preview">
+                            <span>Cumartesi</span>
+                            <strong id="quickWeekendCount">0</strong>
+                        </div>
+                        <div class="total-preview">
+                            <span>Tatil</span>
+                            <strong id="quickHolidayCount">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="quick-calc-grid">
+                        <label>
+                            Hafta İçi Günlük Prim
+                            <input type="number" id="quickWeekdayPrice" min="0" step="0.01" placeholder="Örn: 470">
+                        </label>
+
+                        <label>
+                            Cumartesi Günlük Prim
+                            <input type="number" id="quickWeekendPrice" min="0" step="0.01" placeholder="Örn: 470">
+                        </label>
+
+                        <label>
+                            Resmi Tatil Günlük Prim
+                            <input type="number" id="quickHolidayPrice" min="0" step="0.01" placeholder="Örn: 940">
+                        </label>
+                    </div>
+
+                    <section class="quick-selector-card">
+                        <div class="quick-selector-header">
+                            <div>
+                                <h4>İzinli Günler</h4>
+                                <p>Primden düşülecek çalışma günlerini seç.</p>
+                            </div>
+                            <strong id="quickLeaveCount">0 gün</strong>
+                        </div>
+                        <div id="quickLeaveSelector" class="quick-day-selector empty-state">
+                            Ay seçildiğinde çalışma günleri burada listelenir.
+                        </div>
+                    </section>
+
+                    <section class="quick-selector-card">
+                        <div class="quick-selector-header">
+                            <div>
+                                <h4>Resmi Tatil / Pazar Çalışması</h4>
+                                <p>Çalışılan tatil günlerini seç.</p>
+                            </div>
+                            <strong id="quickWorkedHolidayCount">0 gün</strong>
+                        </div>
+                        <div id="quickHolidayWorkSelector" class="quick-day-selector empty-state">
+                            Ay seçildiğinde tatil günleri burada listelenir.
+                        </div>
+                    </section>
+
+                    <div class="total-preview">
+                        <span>Prim Hesabına Dahil Gün</span>
+                        <strong id="quickPaidDayCount">0</strong>
+                    </div>
+
+                    <div class="total-preview quick-total-preview">
+                        <span>Aylık Sabit Prim</span>
+                        <strong id="quickMonthlyTotalPreview">0 TL</strong>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobil menü"></nav>
+
+    <script type="module" src="../assets/js/app-init.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/quick-calc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script type="module" src="../assets/js/quick-pdf.js?v=50"></script>
+</body>
+</html>

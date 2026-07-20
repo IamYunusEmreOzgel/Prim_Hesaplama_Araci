@@ -1,0 +1,120 @@
+/**
+ * Aylık toplu prim giriş ekranının özet ve gün seçim alanlarını düzenler.
+ *
+ * Görevleri:
+ * - İzin ve çalışılan tatil seçeneklerinin kart yapısını biçimlendirir.
+ * - Aylık hesap önizlemesi ile uyarı alanlarının responsive yerleşimini tanımlar.
+ */
+
+.monthly-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.selector-card {
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--muted-card);
+}
+
+.selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.selector-header h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.selector-header p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.selector-header strong {
+    white-space: nowrap;
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.day-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-height: 360px;
+    overflow: auto;
+    padding: 4px;
+}
+
+.day-option {
+    display: flex;
+    grid-template-columns: none;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.day-option:hover {
+    border-color: var(--primary);
+}
+
+.day-option input {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    accent-color: var(--primary);
+}
+
+.day-option span {
+    display: grid;
+    gap: 3px;
+}
+
+.day-option strong {
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.day-option small {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+.day-option:has(input:checked) {
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, 0.12);
+}
+
+.monthly-total-preview {
+    border: 1px solid var(--primary);
+}
+
+.monthly-total-preview strong {
+    color: var(--primary);
+}
+
+@media (max-width: 900px) {
+    .monthly-summary-grid,
+    .day-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .selector-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

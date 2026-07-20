@@ -1,0 +1,220 @@
+/**
+ * Takvim sayfasının araç çubuğu, ay kontrolleri ve gün hücrelerini biçimlendirir.
+ *
+ * Görevleri:
+ * - Günlük prim göstergeleri, kayıt ayrıntıları ve boş durum görünümünü düzenler.
+ * - Takvim bileşeninin farklı ekran genişliklerindeki yerleşimini destekler.
+ */
+
+.calendar-toolbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.calendar-legend {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.calendar-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    display: inline-block;
+    border: 1px solid var(--border);
+}
+
+.prime-dot {
+    background: #dcfce7;
+    border-color: #22c55e;
+}
+
+.empty-dot {
+    background: #f8fafc;
+}
+
+.holiday-dot {
+    background: #fee2e2;
+    border-color: #ef4444;
+}
+
+.today-dot {
+    background: #dbeafe;
+    border-color: #2563eb;
+}
+
+.calendar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(320px, 0.8fr);
+    gap: 20px;
+}
+
+.calendar-card,
+.day-detail-card {
+    min-height: 420px;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.calendar-weekdays span {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.calendar-day,
+.calendar-empty-day {
+    min-height: 98px;
+    border-radius: 16px;
+}
+
+.calendar-empty-day {
+    background: transparent;
+}
+
+.calendar-day {
+    border: 1px solid var(--border);
+    background: var(--muted-card);
+    padding: 10px;
+    display: grid;
+    align-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-align: left;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--text);
+}
+
+.calendar-day:hover,
+.calendar-day.active {
+    border-color: var(--primary);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    transform: translateY(-1px);
+}
+
+.calendar-day.has-prime {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #052e16;
+}
+
+.calendar-day.holiday-day {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #7f1d1d;
+}
+
+.calendar-day.today-day {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.calendar-day-number {
+    font-size: 18px;
+    font-weight: 900;
+    color: inherit;
+}
+
+.calendar-day-total {
+    font-size: 14px;
+    font-weight: 900;
+    color: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-day-meta {
+    color: inherit;
+    opacity: 0.76;
+    font-size: 12px;
+    font-weight: 800;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html[data-theme="dark"] .calendar-day.has-prime {
+    background: #bbf7d0;
+    border-color: #22c55e;
+    color: #052e16;
+}
+
+html[data-theme="dark"] .calendar-day.holiday-day {
+    background: #fecaca;
+    border-color: #ef4444;
+    color: #7f1d1d;
+}
+
+.day-detail-card .total-preview {
+    margin-bottom: 16px;
+}
+
+@media (max-width: 1100px) {
+    .calendar-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .calendar-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .calendar-grid,
+    .calendar-weekdays {
+        min-width: 520px;
+        gap: 5px;
+    }
+
+    .calendar-day,
+    .calendar-empty-day {
+        min-height: 82px;
+        border-radius: 12px;
+    }
+
+    .calendar-day {
+        padding: 8px;
+    }
+
+    .calendar-day-number {
+        font-size: 15px;
+    }
+
+    .calendar-day-total {
+        font-size: 12px;
+    }
+
+    .calendar-day-meta {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,148 @@
+/**
+ * Satır içi mesaj ve toast bildirim bileşenlerini biçimlendirir.
+ *
+ * Görevleri:
+ * - Başarı, hata, bilgi ve uyarı durumlarının görsel ayrımını sağlar.
+ * - Bildirimlerin konum, geçiş ve mobil görünüm davranışlarını tanımlar.
+ */
+
+.form-message {
+    min-height: 20px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.form-message:not(:empty) {
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--muted-card);
+}
+
+.form-message[data-type="success"] {
+    color: #16a34a;
+    border-color: rgba(22, 163, 74, 0.28);
+    background: rgba(22, 163, 74, 0.08);
+}
+
+.form-message[data-type="info"] {
+    color: var(--primary);
+    border-color: rgba(37, 99, 235, 0.26);
+    background: rgba(37, 99, 235, 0.08);
+}
+
+.form-message[data-type="warning"] {
+    color: #ca8a04;
+    border-color: rgba(202, 138, 4, 0.28);
+    background: rgba(202, 138, 4, 0.09);
+}
+
+.form-message[data-type="error"] {
+    color: var(--danger);
+    border-color: rgba(220, 38, 38, 0.28);
+    background: rgba(220, 38, 38, 0.08);
+}
+
+.toast-container {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    z-index: 9999;
+    display: grid;
+    gap: 12px;
+    width: min(360px, calc(100vw - 32px));
+    pointer-events: none;
+}
+
+.toast-message {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 15px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--card);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    pointer-events: auto;
+}
+
+.toast-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-icon {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    font-weight: 900;
+    color: var(--white);
+    background: var(--primary);
+}
+
+.toast-text {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.toast-close {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 2px;
+}
+
+.toast-message[data-type="success"] {
+    border-color: rgba(22, 163, 74, 0.3);
+}
+
+.toast-message[data-type="success"] .toast-icon {
+    background: #16a34a;
+}
+
+.toast-message[data-type="info"] {
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+.toast-message[data-type="info"] .toast-icon {
+    background: var(--primary);
+}
+
+.toast-message[data-type="warning"] {
+    border-color: rgba(202, 138, 4, 0.32);
+}
+
+.toast-message[data-type="warning"] .toast-icon {
+    background: #ca8a04;
+}
+
+.toast-message[data-type="error"] {
+    border-color: rgba(220, 38, 38, 0.32);
+}
+
+.toast-message[data-type="error"] .toast-icon {
+    background: var(--danger);
+}
+
+@media (max-width: 900px) {
+    .toast-container {
+        top: auto;
+        right: 12px;
+        bottom: 104px;
+        left: 12px;
+        width: auto;
+    }
+}

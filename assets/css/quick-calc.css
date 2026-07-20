@@ -1,0 +1,234 @@
+/**
+ * Hızlı hesap sayfasının form, sonuç ve geçici liste yerleşimini düzenler.
+ *
+ * Görevleri:
+ * - Aylık hesap özeti ile PDF çıktı kontrollerini biçimlendirir.
+ * - Hızlı hesap bileşenlerinin mobil ekran uyarlamalarını tanımlar.
+ */
+
+.quick-calc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.quick-result-card {
+    display: grid;
+    gap: 14px;
+}
+
+.quick-result-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.quick-result-row:last-child {
+    border-bottom: 0;
+}
+
+.quick-result-row span {
+    color: var(--muted);
+    font-weight: 800;
+}
+
+.quick-result-row strong {
+    color: var(--text);
+    font-size: 22px;
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+
+.quick-note {
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--muted-card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.quick-calc-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.quick-calc-actions .btn {
+    width: auto;
+}
+
+.quick-single-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--muted-card);
+}
+
+.quick-single-item + .quick-single-item {
+    margin-top: 10px;
+}
+
+.quick-single-info {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+}
+
+.quick-single-info strong {
+    color: var(--text);
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.quick-single-info span {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.quick-single-value {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.quick-single-value strong {
+    color: var(--primary);
+    font-size: 17px;
+}
+
+.quick-selector-card {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--muted-card);
+}
+
+.quick-selector-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.quick-selector-header h4 {
+    font-size: 17px;
+    margin-bottom: 4px;
+}
+
+.quick-selector-header p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.quick-selector-header strong {
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.quick-day-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-height: 310px;
+    overflow: auto;
+    padding: 4px;
+}
+
+.quick-day-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.quick-day-option:hover,
+.quick-day-option:has(input:checked) {
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, 0.12);
+}
+
+.quick-day-option input {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    accent-color: var(--primary);
+}
+
+.quick-day-option span {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+}
+
+.quick-day-option strong {
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.quick-day-option small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.quick-total-preview {
+    border: 1px solid var(--primary);
+}
+
+.quick-total-preview strong {
+    color: var(--primary);
+}
+
+@media (max-width: 1000px) {
+    .quick-calc-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .quick-day-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-selector-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .quick-calc-actions .btn {
+        width: 100%;
+    }
+
+    .quick-result-row,
+    .quick-single-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .quick-result-row strong {
+        text-align: left;
+    }
+
+    .quick-single-value {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
