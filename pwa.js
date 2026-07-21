@@ -3,18 +3,34 @@
  *
  * Bu dosya hem tarayıcıda PWA manifestini ve service worker kaydını oluşturur,
  * hem de service worker bağlamında temel çevrim dışı önbellekleme işlemlerini yürütür.
- * Dosya kaldırıldığında uygulamanın ana işlevleri çalışmaya devam eder.
+ * Dosya kaldırıldığında uygulamanın ana işlevleri çalışmaya devam eder ve daha önce
+ * kurulmuş service worker ilk çevrim içi sayfa açılışında kendini kayıttan çıkarır.
  */
 
 const CACHE_NAME = "prim-hesaplama-pwa-v1";
 const APP_ROOT = new URL("./", import.meta.url);
 const OFFLINE_PAGE = new URL("index.html", APP_ROOT).href;
+const PWA_FILE_URL = import.meta.url;
 
 const isServiceWorker =
     typeof ServiceWorkerGlobalScope !== "undefined" &&
     self instanceof ServiceWorkerGlobalScope;
 
 if (isServiceWorker) {
+    async function removePwaIfSourceWasDeleted() {
+        try {
+            const response = await fetch(PWA_FILE_URL, { cache: "no-store" });
+            if (response.ok) return false;
+
+            await caches.delete(CACHE_NAME);
+            await self.registration.unregister();
+            return true;
+        } catch {
+            // İnternet yokken mevcut çevrim dışı çalışma korunur.
+            return false;
+        }
+    }
+
     self.addEventListener("install", (event) => {
         event.waitUntil(
             caches
@@ -52,21 +68,29 @@ if (isServiceWorker) {
             return;
         }
 
+        // PWA dosyasının kendisi önbelleğe alınmaz; böylece silinmesi algılanabilir.
+        if (requestUrl.href === PWA_FILE_URL) {
+            return;
+        }
+
         if (request.mode === "navigate") {
             event.respondWith(
-                fetch(request)
-                    .then((response) => {
+                removePwaIfSourceWasDeleted().then(async (wasRemoved) => {
+                    if (wasRemoved) return fetch(request);
+
+                    try {
+                        const response = await fetch(request);
                         const responseCopy = response.clone();
                         caches.open(CACHE_NAME).then((cache) => cache.put(request, responseCopy));
                         return response;
-                    })
-                    .catch(async () => {
+                    } catch {
                         return (
                             (await caches.match(request)) ||
                             (await caches.match(OFFLINE_PAGE)) ||
                             Response.error()
                         );
-                    })
+                    }
+                })
             );
             return;
         }
@@ -126,15 +150,21 @@ if (isServiceWorker) {
     }
 
     if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
+        const registerServiceWorker = () => {
             navigator.serviceWorker
-                .register(import.meta.url, {
+                .register(PWA_FILE_URL, {
                     scope: APP_ROOT.pathname,
                     type: "module"
                 })
                 .catch((error) => {
                     console.warn("PWA service worker kaydı yapılamadı:", error);
                 });
-        });
+        };
+
+        if (document.readyState === "complete") {
+            registerServiceWorker();
+        } else {
+            window.addEventListener("load", registerServiceWorker, { once: true });
+        }
     }
 }
