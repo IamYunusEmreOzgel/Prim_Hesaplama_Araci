@@ -13,6 +13,9 @@ import { initTheme } from "./theme.js";
 import { installAlertBridge } from "./message.js";
 import "./date-selectors.js";
 
+// PWA katmanı isteğe bağlıdır. pwa.js silinse bile uygulama normal şekilde açılır.
+import("../../pwa.js").catch(() => undefined);
+
 function loadSharedStylesheet(fileName) {
     const href = new URL(`../css/${fileName}`, import.meta.url).href;
 
